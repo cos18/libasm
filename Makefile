@@ -6,7 +6,7 @@
 #    By: sunpark <sunpark@student.42seoul.kr>       +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/11/08 19:58:50 by sunpark           #+#    #+#              #
-#    Updated: 2020/11/09 19:21:15 by sunpark          ###   ########.fr        #
+#    Updated: 2020/11/10 17:31:13 by sunpark          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,6 +19,7 @@ GCC		= gcc
 GCCFLAG	= -Wall -Wextra -Werror -L. -lasm
 
 NAME	= libasm.a
+TNAME	= libasm_test
 
 %.o: 		%.s
 			${ASM} ${ASFLAG} $< -o $@
@@ -29,7 +30,8 @@ ${NAME}:	${OBJS}
 all:		${NAME}
 
 test:		all
-			${GCC} ${GCCFLAG} test.c ${NAME}
+			${GCC} -o ${TNAME} test.c ${NAME}
+			./${TNAME}
 
 clean:
 			rm -f ${OBJS}

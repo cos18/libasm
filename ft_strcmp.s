@@ -9,25 +9,26 @@ _ft_strcmp:
 	mov		rax, 0
 	jmp		compare
 null_return:
-	mov		rax, rdi
-	sub		rax, rsi
-	ret
+	cmp		rdi, rsi
+	jg		greater
+	je		same
+	jmp		least
 plus:
 	inc		rax
 compare:
-	mov		rbx, [rdi + rax]
-	mov		rcx, [rsi + rax]
-	cmp		bl, 0
-	je		return
-	cmp		cl, 0
-	je		return
-	cmp		rbx, rcx
+	mov		dl, BYTE [rdi + rax]
+	cmp		dl, 0
+	je		last_s1
+	cmp		BYTE [rsi + rax], 0
+	je		greater
+	cmp		dl, BYTE [rsi + rax]
 	je		plus
-return:
-	sub		rbx, rcx
-	cmp		rbx, 0
 	jg		greater
+	jmp		least
+last_s1:
+	cmp		BYTE [rsi + rax], 0
 	je		same
+	jmp		least
 least:
 	mov		rax, -1
 	ret		
